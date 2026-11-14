@@ -1,0 +1,69 @@
+{
+  "model": "opusplan",
+  "permissions": {
+    "allow": [
+      "Bash(dotnet build *)",
+      "PowerShell(dotnet build *)",
+      "Bash(dotnet restore *)",
+      "PowerShell(dotnet restore *)",
+      "Bash(dotnet test *)",
+      "PowerShell(dotnet test *)",
+      "Bash(dotnet ef migrations list *)",
+      "PowerShell(dotnet ef migrations list *)"
+    ],
+    "deny": [
+      "Bash(dotnet fsi *)",
+      "PowerShell(dotnet fsi *)",
+      "Bash(dotnet script *)",
+      "PowerShell(dotnet script *)",
+      "Bash(sqlcmd *)",
+      "PowerShell(sqlcmd *)",
+      "PowerShell(Invoke-Sqlcmd *)",
+      "Bash(bcp *)",
+      "PowerShell(bcp *)",
+      "Bash(osql *)",
+      "PowerShell(osql *)"
+    ]
+  },
+  "statusLine": {
+    "type": "command",
+    "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks-ps/statusline.ps1\""
+  },
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks-ps/session-start.ps1\"",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Agent|Task",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks-ps/gate-agent.ps1\"",
+            "timeout": 30,
+            "statusMessage": "Token-control: gating agent spawn (approve one at a time)"
+          }
+        ]
+      },
+      {
+        "matcher": "Bash|PowerShell",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "powershell -NoProfile -ExecutionPolicy Bypass -File \"$CLAUDE_PROJECT_DIR/.claude/hooks-ps/db-write-guard.ps1\"",
+            "timeout": 15,
+            "statusMessage": "DB-write guard: writes are owner-run on this repo"
+          }
+        ]
+      }
+    ]
+  }
+}

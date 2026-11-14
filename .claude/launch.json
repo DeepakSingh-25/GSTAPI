@@ -1,0 +1,17 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "gst-api",
+      "runtimeExecutable": "dotnet",
+      "runtimeArgs": ["run", "--project", "src/Presentation/Gst.Api", "--launch-profile", "https"],
+      "port": 5100
+    },
+    {
+      "name": "gst-web",
+      "runtimeExecutable": "cmd",
+      "runtimeArgs": ["/c", "cd /d D:\\Gst\\Web && npx ng serve --port 4200"],
+      "port": 4200
+    }
+  ]
+}

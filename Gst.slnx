@@ -1,0 +1,15 @@
+<Solution>
+  <Folder Name="/Core/">
+    <Project Path="src/Core/Gst.Application/Gst.Application.csproj" />
+    <Project Path="src/Core/Gst.Domain/Gst.Domain.csproj" />
+  </Folder>
+  <Folder Name="/Infrastructure/">
+    <Project Path="src/Infrastructure/Gst.Persistence/Gst.Persistence.csproj" />
+  </Folder>
+  <Folder Name="/Presentation/">
+    <Project Path="src/Presentation/Gst.Api/Gst.Api.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Gst.Api.Tests/Gst.Api.Tests.csproj" />
+  </Folder>
+</Solution>
